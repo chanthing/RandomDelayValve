@@ -1,0 +1,34 @@
+<!-- This is a build file for ant  -->
+
+<project name="RandomDelayValve" default="jar" basedir=".">
+
+  <property name="ProjectName" value="RandomDelayValve"/>
+
+  <property name="tcserver.install.dir" value="/opt/SpringSource/vfabric-tc-server-standard-2.6.0.RELEASE"/>
+
+  <property name="tomcatversion" value="tomcat-7.0.19.A.RELEASE"/>
+
+  <property name="ant.install.dir" value="/usr/share/java/ant-1.8.1"/>
+
+  <path id="compile.path">
+    <fileset dir="${tcserver.install.dir}/${tomcatversion}/lib" includes="*.jar" />
+    <fileset dir="${tcserver.install.dir}/${tomcatversion}/bin" includes="*.jar" />
+  </path>
+
+  <target name="prepare">
+    <mkdir dir="build"/>
+    <tstamp/>
+  </target>
+
+  <target name="compile" depends="prepare">
+    <javac srcdir="src" destdir="build">
+	<classpath refid="compile.path"/>
+    </javac>
+  </target>
+
+ <target name="jar" depends="compile">
+    <jar jarfile="${ProjectName}.jar" basedir="build"/>
+  </target>
+
+
+</project>
